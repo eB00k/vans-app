@@ -1,0 +1,77 @@
+.van-detail {
+  width: 80%;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+
+  .detail-back {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  img {
+    width: 100%;
+    max-width: 640px;
+    max-height: 460px;
+    margin: 1.5rem;
+    border-radius: .4rem;
+
+    align-self: center;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  h2 {
+    margin: 1rem 0 0.5rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+  }
+
+  .price {
+    color: var(--clr-secondary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.simple,
+.rugged,
+.luxury {
+  width: 120px;
+  padding: 0.1rem;
+  color: var(--clr-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0.2rem;
+}
+
+.simple {
+  background-color: #e17654;
+}
+
+.rugged {
+  background-color: #115e59;
+}
+
+.luxury {
+  background-color: #161616;
+}
+
+.btn {
+  width: 100%;
+  background-color: #e17654;
+  color: var(--clr-bg);
+  text-align: center;
+  padding: 0.4rem;
+  border-radius: 0.2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.rent-btn {
+  margin-bottom: 2rem;
+}
