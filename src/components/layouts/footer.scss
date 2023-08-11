@@ -1,0 +1,9 @@
+footer {
+  height: 10vh;
+  background-color: var(--clr-main);
+  color: var(--clr-bg);
+  padding: 1rem;
+  .footer__text {
+    text-align: center;
+  }
+}
