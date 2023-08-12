@@ -11,6 +11,8 @@
 
   .vans-filter {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: max(1rem, 5vw);
     font-size: 0.9rem;
 
@@ -22,16 +24,20 @@
       cursor: pointer;
 
       &:hover {
-        color: var(--clr-bg);
-        &:nth-child(1) {
-          background-color: #e17654;
-        }
-        &:nth-child(3) {
-          background-color: #115e59;
-        }
-        &:nth-child(2) {
-          background-color: #161616;
-        }
+        opacity: 0.7;
+      }
+    }
+
+    .active {
+      color: var(--clr-bg);
+      &:nth-child(1) {
+        background-color: #e17654;
+      }
+      &:nth-child(3) {
+        background-color: #115e59;
+      }
+      &:nth-child(2) {
+        background-color: #161616;
       }
     }
 
