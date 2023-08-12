@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import './header.scss'
 
 export default function Header() {
@@ -7,8 +7,8 @@ export default function Header() {
     <header>
       <Link to="/" className="header__logo">#VANLIFE</Link>
       <nav>
-        <Link to="/about">About</Link>
-        <Link to="/vans">Vans</Link>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/vans">Vans</NavLink>
       </nav>
     </header>
   );
