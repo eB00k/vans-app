@@ -1,5 +1,43 @@
-.catalog {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    background-color: red;
+.vans-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    align-self: flex-start;
+    padding-left: max(15vw, 2rem);
+    margin: 1rem 0;
+  }
+
+  .vans-filter {
+    display: flex;
+    gap: max(1rem, 5vw);
+    font-size: 0.9rem;
+
+    .filter-btn {
+      background-color: var(--clr-bg-two);
+      padding: 0.05rem 0.5rem;
+      border-radius: 0.25rem;
+      transition: all ease 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--clr-bg);
+        &:nth-child(1) {
+          background-color: #e17654;
+        }
+        &:nth-child(3) {
+          background-color: #115e59;
+        }
+        &:nth-child(2) {
+          background-color: #161616;
+        }
+      }
+    }
+
+    .clear-btn {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }

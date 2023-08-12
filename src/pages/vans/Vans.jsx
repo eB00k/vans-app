@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { VanService } from "../../services/vans.service";
 import VansCatalog from "../../components/vans-page/VansCatalog";
+import "./van.scss";
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
@@ -19,12 +20,12 @@ export default function Vans() {
     <div className="vans-container">
       <h2>Explore our van options</h2>
       <div className="vans-filter">
-        <span>Simple</span>
-        <span>Luxury</span>
-        <span>Rugged</span>
-        <span>Clear Filters</span>
+        <span className="filter-btn">• Simple</span>
+        <span className="filter-btn">• Luxury</span>
+        <span className="filter-btn">• Rugged</span>
+        <span className="clear-btn">Clear Filters</span>
       </div>
-      <VansCatalog vans={vans}/>
+      <VansCatalog vans={vans} />
     </div>
   );
 }
