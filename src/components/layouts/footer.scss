@@ -1,5 +1,9 @@
 footer {
   height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   background-color: var(--clr-main);
   color: var(--clr-bg);
   padding: 1rem;
