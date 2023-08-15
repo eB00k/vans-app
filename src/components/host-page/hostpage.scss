@@ -88,8 +88,90 @@
 
 // style for HostVanDetail.jsx
 .host-van-detail {
-  h5 {
+  & > a {
+    text-decoration: none;
     font-weight: 500;
     text-decoration: underline 1.5px;
   }
+
+  .host-van-detail-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    background-color: var(--clr-bg-two);
+    padding: 1.5rem;
+    border-radius: 0.2rem;
+    .host-van-detail-box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2rem;
+
+      img {
+        width: max(120px, 10vw);
+        height: max(120px, 10vw);
+        aspect-ratio: 1/1;
+        border-radius: 0.2rem;
+      }
+
+      .detail-info {
+        display: flex;
+        flex-direction: column;
+
+        .btn {
+          width: max-content;
+          padding: 0.1rem 0.6rem;
+        }
+      }
+    }
+
+    .van-navigation {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+
+      a:hover {
+        opacity: 0.8;
+      }
+
+      a.active {
+        text-decoration: underline;
+        opacity: 1;
+      }
+    }
+
+    .host-van-detail-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      span {
+        font-weight: 500;
+        padding-right: 0.2rem;
+      }
+    }
+
+    .host-van-detail-pricing {
+      font-size: 1.2rem;
+
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.simple {
+  background-color: #e17654;
+}
+
+.rugged {
+  background-color: #115e59;
+}
+
+.luxury {
+  background-color: #161616;
 }

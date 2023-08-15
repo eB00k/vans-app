@@ -9,6 +9,10 @@ const HostService = {
     const response = await axios.get("/api/host/vans");
     return response.data.vans;
   },
+  async getHostVanById(id) {
+    const response = await axios.get(`/api/host/vans/${id}`);
+    return response.data.vans[0];
+  },
 };
 
 export default HostService;

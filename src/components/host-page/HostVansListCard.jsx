@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function HostVansListCard({ van }) {
+export default function HostVansListCard({ van = {} }) {
   return (
     <Link to={`/host/vans/${van.id}`}>
       <div className="host-van-card">

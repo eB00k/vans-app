@@ -14,6 +14,9 @@ import HostLayout from "../components/layouts/HostLayout";
 import HostVans from "../components/host-page/HostVans";
 import VansItemLayout from "../components/layouts/VansItemLayout";
 import HostVanDetail from "../components/host-page/HostVanDetail";
+import Detail from "../components/host-page/Detail";
+import Pricing from "../components/host-page/Pricing";
+import Photos from "../components/host-page/Photos";
 
 export default function Router() {
   return (
@@ -30,10 +33,10 @@ export default function Router() {
             <Route path="income" element={<Income />} />
             <Route path="reviews" element={<Reviews />} />
             <Route path="vans" element={<HostVans />} />
-            <Route path="vans/:vanId" element={<VansItemLayout />}>
-              <Route index element={<HostVanDetail />} />
-              {/* <Route path="pricing" el ement={<div>Pricing</div>}
-               <Route path="photos" element={<div>Photos</div>} */}
+            <Route path="vans/:vanId" element={<HostVanDetail />}>
+              <Route index element={<Detail />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="photos" element={<Photos />} />
             </Route>
           </Route>
 
