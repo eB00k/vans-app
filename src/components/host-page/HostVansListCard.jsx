@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function HostVansListCard({ van = {} }) {
   return (
-    <Link to={`/host/vans/${van.id}`}>
+    <Link to={`${van.id}`}>
       <div className="host-van-card">
         <img src={van.imageUrl} alt="van" />
         <div className="host-van-info">

@@ -25,7 +25,6 @@ export default function HostVanDetail() {
       {currentVan && currentVan.id ? (
         <>
           <Link to=".." relative="path">
-            {" "}
             {"<"}Back to all vans
           </Link>
           <div className="host-van-detail-container">
@@ -43,7 +42,7 @@ export default function HostVanDetail() {
               </div>
             </div>
             <VanNavigation id={vanId} />
-            <Outlet context={currentVan}/>
+            <Outlet context={currentVan} />
           </div>
         </>
       ) : (

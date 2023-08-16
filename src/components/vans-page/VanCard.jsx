@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./vans.module.scss";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { SearchParamsContext } from "../../pages/vans/Vans";
 
 export default function VanCard({ data }) {
+  const searchContextValue = useContext(SearchParamsContext);
   return (
-    <Link to={`/vans/${data.id}`}>
+    <Link to={`${data.id}`} state={searchContextValue}>
       <div className={styles.card}>
         <img src={data.imageUrl} alt="van" className={styles.cardImg} />
         <div className={styles.info}>

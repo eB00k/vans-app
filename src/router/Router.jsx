@@ -12,7 +12,6 @@ import Dashboard from "../pages/host/Dashboard";
 import Reviews from "../pages/host/Reviews";
 import HostLayout from "../components/layouts/HostLayout";
 import HostVans from "../components/host-page/HostVans";
-import VansItemLayout from "../components/layouts/VansItemLayout";
 import HostVanDetail from "../components/host-page/HostVanDetail";
 import Detail from "../components/host-page/Detail";
 import Pricing from "../components/host-page/Pricing";
