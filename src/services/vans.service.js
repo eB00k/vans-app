@@ -1,14 +1,16 @@
 import axios from "axios";
 
-const URL = "/api/vans";
+const api = axios.create({
+  baseURL: "/api/vans",
+});
 
 export const VanService = {
   async getVans() {
-    const response = await axios.get(URL);
-    return response.data;
+    const response = await api.get();
+    return response;
   },
   async getVanById(id) {
-    const response = await axios.get(`${URL}/${id}`);
-    return response.data.vans;
+    const response = await api.get(`/${id}`);
+    return response;
   },
 };

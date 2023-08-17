@@ -1,22 +1,24 @@
 import React, { useMemo } from "react";
-import { useEffect, useState } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useLoaderData } from "react-router-dom";
 import { VanService } from "../../services/vans.service";
 import "./vandetail.scss";
 
-export default function VanDetail() {
-  const [van, setVan] = useState({});
-  const params = useParams();
-  const location = useLocation();
-  const { pathname, search, state } = useMemo(() => location, [location]);
+export function loader({ params }) {
+  const fetchData = async () => {
+    try {
+      const response = await VanService.getVanById(params.id);
+      return response.data.vans;
+    } catch (err) {
+      throw err;
+    }
+  };
+  return fetchData();
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await VanService.getVanById(params.id);
-      setVan(data);
-    };
-    fetchData();
-  }, [params.id]);
+export default function VanDetail() {
+  const location = useLocation();
+  const { state } = useMemo(() => location, [location]);
+  const van = useLoaderData();
 
   const stateSearch = state?.search || "";
   const type = state?.type || "all";
