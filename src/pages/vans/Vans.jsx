@@ -4,7 +4,12 @@ import { VanService } from "../../services/vans.service";
 import FilterButtons from "../../components/vans-page/FilterButtons";
 import VansCatalog from "../../components/vans-page/VansCatalog";
 import "./van.scss";
-import { useLoaderData, useSearchParams, Link } from "react-router-dom";
+import {
+  useLoaderData,
+  useSearchParams,
+  Link,
+  redirect,
+} from "react-router-dom";
 
 const FILTER_OPTIONS = {
   simple: false,
@@ -13,6 +18,10 @@ const FILTER_OPTIONS = {
 };
 
 export function loader() {
+  const isLoggedIn = true;
+  if (!isLoggedIn) {
+    throw redirect("/login");
+  }
   const fetchDB = async () => {
     try {
       const response = await VanService.getVans();

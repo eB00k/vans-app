@@ -23,7 +23,7 @@ export default function VanDetail() {
   const stateSearch = state?.search || "";
   const type = state?.type || "all";
 
-  return van.id ? (
+  return (
     <div className="van-detail">
       <Link to={`../?${stateSearch}`} className="detail-back" relative="path">
         {"<"} Back to {type} vans
@@ -38,7 +38,5 @@ export default function VanDetail() {
       <p>&nbsp;{van.description}</p>
       <div className="rent-btn btn">Rent this van</div>
     </div>
-  ) : (
-    <div>Loading...</div>
   );
 }
