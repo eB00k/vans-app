@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, Suspense } from "react";
 import { VanService } from "../../services/vans.service";
 import FilterButtons from "../../components/vans-page/FilterButtons";
 import VansCatalog from "../../components/vans-page/VansCatalog";
@@ -9,6 +9,8 @@ import {
   useSearchParams,
   Link,
   redirect,
+  defer,
+  Await,
 } from "react-router-dom";
 
 const FILTER_OPTIONS = {
@@ -24,8 +26,8 @@ export function loader() {
   }
   const fetchDB = async () => {
     try {
-      const response = await VanService.getVans();
-      return response.data.vans;
+      const responsePromise = VanService.getVans();
+      return defer({ allVans: responsePromise });
     } catch (err) {
       throw err;
     }
@@ -37,9 +39,8 @@ export const SearchParamsContext = createContext(null);
 
 export default function Vans() {
   const [filters, setFilters] = useState(FILTER_OPTIONS);
-  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const allVans = useLoaderData();
+  const dataPromise = useLoaderData();
 
   const typeFilter = searchParams.getAll("type");
 
@@ -84,26 +85,13 @@ export default function Vans() {
     });
   }
 
-  const displayedVans = typeFilter
-    ? allVans.filter((van) => filters[van.type])
-    : allVans;
+  function renderElements(allVans) {
+    const displayedVans = typeFilter
+      ? allVans.filter((van) => filters[van.type])
+      : allVans;
 
-  if (error)
     return (
-      <div className="vans-container" style={{ minHeight: "78vh" }}>
-        {error.message}
-      </div>
-    );
-
-  return (
-    <SearchParamsContext.Provider
-      value={{
-        search: searchParams.toString(),
-        type: searchParams.get("type"),
-      }}
-    >
-      <div className="vans-container">
-        <h2>Explore our van options</h2>
+      <>
         <div className="vans-filter">
           <FilterButtons filters={filters} handleFilter={handleFilter} />
           {typeFilter && (
@@ -117,6 +105,22 @@ export default function Vans() {
           )}
         </div>
         <VansCatalog vans={displayedVans.length ? displayedVans : allVans} />
+      </>
+    );
+  }
+
+  return (
+    <SearchParamsContext.Provider
+      value={{
+        search: searchParams.toString(),
+        type: searchParams.get("type"),
+      }}
+    >
+      <div className="vans-container">
+        <h2>Explore our van options</h2>
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Await resolve={dataPromise.allVans}>{renderElements}</Await>
+        </Suspense>
       </div>
     </SearchParamsContext.Provider>
   );

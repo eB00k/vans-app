@@ -7,7 +7,7 @@ const api = axios.create({
 export const VanService = {
   async getVans() {
     const response = await api.get();
-    return response;
+    return response.data.vans;
   },
   async getVanById(id) {
     const response = await api.get(`/${id}`);
