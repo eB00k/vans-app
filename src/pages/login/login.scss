@@ -25,7 +25,6 @@
 
     span {
       font-size: 0.8rem;
-      padding-left: 1rem;
       color: crimson;
       opacity: 1;
       user-select: none;
@@ -48,13 +47,16 @@
     button {
       background-color: var(--clr-main);
       color: var(--clr-bg);
-      text-transform: uppercase;
       font-weight: 600;
       cursor: pointer;
 
       &:active {
         opacity: 0.9;
       }
+    }
+
+    .submitting {
+      background-color: #777;
     }
   }
 }

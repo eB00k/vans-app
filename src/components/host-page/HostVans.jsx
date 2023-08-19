@@ -3,14 +3,15 @@ import HostVansListCard from "./HostVansListCard";
 import { useLoaderData } from "react-router-dom";
 import { requireAuth } from "../../utils/requireAuth";
 
-export async function loader() {
-  await requireAuth();
+export async function loader({ request }) {
+  await requireAuth(request);
   const fetchData = async () => {
     try {
       const data = await HostService.getHostVans();
       if (!data.length) throw new Error("There is no data");
       return data;
     } catch (err) {
+      console.log(err);
       throw err;
     }
   };
@@ -19,7 +20,6 @@ export async function loader() {
 
 export default function HostVans() {
   const hostVans = useLoaderData();
-
   return (
     <div className="host-page host-vans">
       <h2 className="host-vans-title">Your Listed Vans</h2>

@@ -13,8 +13,27 @@ header {
   nav {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 4vw;
-    a {
+
+    .user-icon {
+      line-height: 35px;
+      font-size: 36px;
+    }
+
+    .logout {
+      color: var(--clr-secondary);
+      border: 1px solid transparent;
+      border-radius: 0.2rem;
+      padding: 0 0.2rem;
+      cursor: pointer;
+      transition: border ease 0.3s;
+      &:hover {
+        border-color: var(--clr-secondary);
+      }
+    }
+
+    a:not(.no) {
       position: relative;
 
       &::after {

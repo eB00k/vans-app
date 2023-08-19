@@ -4,6 +4,10 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./header.scss";
 
 export default function Header() {
+  function logout() {
+    localStorage.removeItem("token");
+    console.log(localStorage.getItem("token"));
+  }
   return (
     <header>
       <Link to="/" className="header__logo">
@@ -13,9 +17,12 @@ export default function Header() {
         <NavLink to="/host">Host</NavLink>
         <NavLink to="/about">About</NavLink>
         <NavLink to="/vans">Vans</NavLink>
-        <NavLink to="/login">
+        <Link to="/login" className="no user-icon">
           <AccountCircleIcon />
-        </NavLink>
+        </Link>
+        <span onClick={logout} className="no logout">
+          out
+        </span>
       </nav>
     </header>
   );

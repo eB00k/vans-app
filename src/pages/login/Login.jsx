@@ -1,74 +1,67 @@
 import React from "react";
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import {
+  useLoaderData,
+  useActionData,
+  Form,
+  redirect,
+  useNavigation,
+} from "react-router-dom";
 import "./login.scss";
-
-const FORM_DATA = {
-  email: "",
-  password: "",
-};
+import login from "../../services/login.service";
 
 export function loader({ request }) {
   const searchTerm = new URL(request.url).searchParams.get("message");
   return searchTerm;
 }
 
+async function fakeLoginUser({ email, password }) {
+  const data = await login.loginUser({ email, password });
+  if (data.token) {
+    localStorage.setItem("token", JSON.stringify(data.token));
+  }
+}
+
+export async function action({ request }) {
+  const redirectTo = new URL(request.url).searchParams.get("redirectTo") || "/host";
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  try {
+    await fakeLoginUser({ email, password });
+    const response = redirect(redirectTo);
+    response.body = true;
+    return response;
+  } catch (err) {
+    return err.message;
+  }
+}
+
 export default function Login() {
-  const [loginFormData, setLoginFormData] = useState(FORM_DATA);
-  const [errorMessage, setErrorMessage] = useState(FORM_DATA);
   const loginMessage = useLoaderData();
-  console.log(loginMessage);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!loginFormData.email || !loginFormData.email.includes("@")) {
-      setErrorMessage((prev) => ({ ...prev, email: "invalid email" }));
-      return;
-    }
-    if (!loginFormData.password) {
-      setErrorMessage((prev) => ({ ...prev, password: "invalid password" }));
-      return;
-    }
-
-    console.log(loginFormData);
-  }
-
-  function handleChange(e) {
-    setErrorMessage((prev) => ({ ...prev, [e.target.name]: "" }));
-    console.log(loginFormData);
-    setLoginFormData((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  }
+  const errorMesssage = useActionData();
+  const { state } = useNavigation(); // tracks the navigation state
 
   return (
     <div className="login-page">
-      <form onSubmit={handleSubmit} className="login-form">
-        {loginMessage && <span className="login-message">{loginMessage}</span>}
+      <Form className="login-form" method="post" replace>
         <h2>LOGIN</h2>
-
+        {!errorMesssage && loginMessage && (
+          <span className="login-message">{loginMessage}</span>
+        )}
+        {errorMesssage && (
+          <span className="login-message">{errorMesssage}</span>
+        )}
         <div>
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            onChange={handleChange}
-            value={loginFormData.email}
-          />
-          {errorMessage.email && <span>{errorMessage.email}</span>}
+          <input name="email" type="email" placeholder="Email" />
         </div>
         <div>
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={handleChange}
-            value={loginFormData.password}
-          />
-          {errorMessage.password && <span>Invalid password</span>}
+          <input name="password" type="password" placeholder="Password" />
         </div>
-        <button>Log In</button>
-      </form>
+        <button disabled={state === "submitting"} className={state}>
+          {state === "submitting" ? "Logging in..." : "Login"}
+        </button>
+      </Form>
     </div>
   );
 }
