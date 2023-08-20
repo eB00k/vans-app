@@ -7,7 +7,7 @@ export default function Error() {
   return (
     <div
       style={{
-        height: "78vh",
+        minHeight: "78vh",
         color: "crimson",
         display: "grid",
         placeItems: "center",

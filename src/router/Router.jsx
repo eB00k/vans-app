@@ -69,7 +69,7 @@ const router = createBrowserRouter(
           path="vans/:vanId"
           element={<HostVanDetail />}
           loader={hostVanDetailLoader}
-          // errorElement={<Error />}
+          errorElement={<Error />}
         >
           <Route
             index

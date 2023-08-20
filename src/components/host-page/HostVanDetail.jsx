@@ -1,30 +1,28 @@
-import { Link, Outlet, useLoaderData } from "react-router-dom";
-import HostService from "../../services/host.service";
+import { Link, Outlet, useLoaderData, Await, defer } from "react-router-dom";
+import { Suspense } from "react";
+import { VanService } from "../../services/vans.service";
 import VanNavigation from "./VanNavigation";
 import { requireAuth } from "../../utils/requireAuth";
 
 export async function loader({ request, params }) {
   await requireAuth(request);
   try {
-    let data = await HostService.getHostVanById(params.vanId);
-    if (!data)
-      throw new Error(
-        `There is no van in your host with this ID: ${params.vanId}`
-      );
-    return data;
+    let promise = VanService.getVanById(params.vanId);
+    // if (!data)
+    //   throw new Error(
+    //     `There is no van in your host with this ID: ${params.vanId}`
+    //   );
+    return defer({ data: promise });
   } catch (err) {
     throw err;
   }
 }
 
 export default function HostVanDetail() {
-  const currentVan = useLoaderData();
+  const promiseCurVan = useLoaderData();
 
-  return (
-    <div className="host-page host-van-detail">
-      <Link to=".." relative="path">
-        {"<"}Back to all vans
-      </Link>
+  function returnElements(currentVan) {
+    return (
       <div className="host-van-detail-container">
         <div className="host-van-detail-box">
           <img src={currentVan.imageUrl} alt="van" />
@@ -40,6 +38,17 @@ export default function HostVanDetail() {
         <VanNavigation id={currentVan.id} />
         <Outlet context={currentVan} />
       </div>
+    );
+  }
+
+  return (
+    <div className="host-page host-van-detail">
+      <Link to=".." relative="path">
+        {"<"}Back to all vans
+      </Link>
+      <Suspense fallback={<h4>Loading...</h4>}>
+        <Await resolve={promiseCurVan.data}>{returnElements}</Await>
+      </Suspense>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import HostService from "../../services/host.service";
+import { VanService } from "../../services/vans.service";
 import HostVansListCard from "./HostVansListCard";
 import { useLoaderData, defer, Await } from "react-router-dom";
 import { Suspense } from "react";
@@ -8,7 +8,7 @@ export async function loader({ request }) {
   await requireAuth(request);
   const fetchData = async () => {
     try {
-      const promiseData = HostService.getHostVans();
+      const promiseData = VanService.getHostVans();
       // if (!data.length) throw new Error("There is no data");
       return defer({ data: promiseData });
     } catch (err) {
